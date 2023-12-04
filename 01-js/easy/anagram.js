@@ -5,7 +5,29 @@
 */
 
 function isAnagram(str1, str2) {
+  if(str1.length !== str2.length){
+    return false
+  }
 
+  const str1LowerCase = str1.toLowerCase()
+  const str2LowerCase = str2.toLowerCase()
+
+  const charCount = {}
+  for(let i = 0; i < str1.length; i++){
+    charCount[str1LowerCase[i]] = (charCount[str1LowerCase[i]] || 0) + 1
+  }
+
+  for(let i = 0; i < str2.length; i++){
+    charCount[str2LowerCase[i]] = (charCount[str2LowerCase[i]] || 0) - 1
+  }
+
+  for(const count of Object.values(charCount)){
+    if(count !== 0){
+      return false
+    }
+  }
+  return true
 }
+
 
 module.exports = isAnagram;

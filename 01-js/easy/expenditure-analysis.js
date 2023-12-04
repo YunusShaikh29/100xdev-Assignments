@@ -6,7 +6,22 @@
 */
 
 function calculateTotalSpentByCategory(transactions) {
-  return [];
+  const categoryObj = {};
+
+  transactions.forEach((transaction) => {
+    const { category, price } = transaction;
+
+    if (categoryObj.hasOwnProperty(category)) {
+      categoryObj[category] += price;
+    } else {
+      categoryObj[category] = price;
+    }
+  });
+
+  const result = Object.keys(categoryObj).map((category) => {
+    return { category, totalSpent: categoryObj[category] };
+  });
+  return result;
 }
 
 module.exports = calculateTotalSpentByCategory;
