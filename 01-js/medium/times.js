@@ -8,6 +8,15 @@ Hint - use Date class exposed in JS
 There is no automated test for this one, this is more for you to understand time goes up as computation goes up
 */
 
+const time = Date.now()
+
 function calculateTime(n) {
-    return 0.01;
+    
+    let count = 0;
+    for(let i = 1; i <= n; i++ ){
+        count += i
+    }
+    return ` for ${n} the count is ${count} and it took around ${(Date.now() - time)/1000} second` 
 }
+
+console.log(calculateTime(100000000))
