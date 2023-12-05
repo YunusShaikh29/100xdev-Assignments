@@ -19,4 +19,4 @@ function calculateTime(n) {
     return ` for ${n} the count is ${count} and it took around ${(Date.now() - time)/1000} second` 
 }
 
-console.log(calculateTime(100000000))
+// console.log(calculateTime(100))
