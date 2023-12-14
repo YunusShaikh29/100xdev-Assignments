@@ -39,7 +39,7 @@ class Todo {
     if (indexOfTodo >= 0 && indexOfTodo < this.todos.length) {
       return this.todos[indexOfTodo];
     }else{
-      return null
+      return null 
     }
   }
 
