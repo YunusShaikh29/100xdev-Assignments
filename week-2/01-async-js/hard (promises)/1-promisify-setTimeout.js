@@ -11,35 +11,4 @@ function wait(n) {
     
 }
 
-
-
-
-// function promisifysettimout(n){
-//     const p = new Promise(function(resolve){
-//         setTimeout(() => {
-//             resolve()
-//         }, n * 1000)
-//     })
-//     return p
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 module.exports = wait;

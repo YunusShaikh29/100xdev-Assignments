@@ -39,11 +39,105 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-  const express = require('express');
-  const bodyParser = require('body-parser');
-  
-  const app = express();
-  
-  app.use(bodyParser.json());
-  
-  module.exports = app;
+const express = require("express");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+
+const app = express();
+
+app.use(express.json());
+
+// const todos = [];
+
+function myfindIndex(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) return i;
+  }
+  return -1;
+}
+
+app.get("/todos", function (req, res) {
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) throw err;
+    res.json(JSON.parse(data));
+  });
+});
+
+app.get("/todos/:id", function (req, res) {
+  fs.readFile("todos.json", "utf-8", (err, data) => {
+    if (err) throw err;
+    const todos = JSON.parse(data);
+    const todo = todos.findIndex((t) => t.id === parseFloat(req.params.id));
+    if (todo === -1) {
+      res.status(404).send();
+    }
+    res.json(todos[todo]);
+  });
+});
+
+app.post("/todos", function (req, res) {
+  const newTodo = {
+    title: req.body.title,
+    description: req.body.description,
+    id: Math.random() * 100000,
+  };
+
+  fs.readFile("todos.json", "utf-8", (err, data) => {
+    if (err) throw err;
+    const todos = JSON.parse(data);
+    todos.push(newTodo);
+    fs.writeFile("todos.json", JSON.stringify(todos), (err, data) => {
+      if (err) throw err;
+      res.status(201).json(newTodo);
+    });
+  });
+});
+
+app.put("/todos/:id", function (req, res) {
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) throw err;
+    const todos = JSON.parse(data);
+    const todo = todos.findIndex((t) => t.id === parseFloat(req.params.id));
+    if (todo === -1) {
+      res.status(404).send();
+    }
+    // const existingItem = todos[todo]
+    todos[todo].title = req.body.title;
+    todos[todo].description = req.body.description;
+    fs.writeFile("todos.json", JSON.stringify(todos), (err, data) => {
+      if (err) throw err;
+      res.json(todos[todo]);
+    });
+  });
+});
+
+app.delete("/todos/:id", (req, res) => {
+  fs.readFile("todos.json", "utf-8", function (err, data) {
+    if (err) throw err;
+    const todos = JSON.parse(data);
+    const todoIndex = todos.findIndex(
+      (t) => t.id === parseFloat(req.params.id)
+    );
+    const updatedTodo = todos.filter(
+      (todo) => todo.id !== parseFloat(req.params.id)
+    );
+    if (todoIndex === -1) {
+      res.status(404).send();
+    } else {
+      fs.writeFile(
+        "todos.json",
+        JSON.stringify(updatedTodo),
+        function (err, data) {
+          if (err) throw err;
+          res.status(200).send();
+        }
+      );
+    }
+  });
+});
+
+app.listen(3002, () => {
+  console.log('Server listening on port 3002')
+})
+
+module.exports = app;
