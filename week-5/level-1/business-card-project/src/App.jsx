@@ -1,5 +1,6 @@
-import "./App.css";
+import styles from "./App.module.css";
 import BusinessCard from "./components/BusinessCard";
+import Form from "./components/Form";
 
 function App() {
   const cardsData = [
@@ -50,25 +51,23 @@ function App() {
   ];
 
   return (
-    <div style={{display: "flex", flexWrap: 'wrap'}}>
-      {cardsData.map((card) => (
-        <BusinessCard
-          key={card.name}
-          name={card.name}
-          description={card.description}
-          interests={card.interests}
-          linkedin={card.linkedin}
-          twitter={card.twitter}
-          otherSocialMedia={card.otherSocialMedia}
-        />
-      ))}
-      {/* <BusinessCard
-        name={"yunus"}
-        description={"dev"}
-        interests={["cricket", "Football"]}
-        linkedin={"https://www.linkedin.com/in/yunus-shaikh-07ba22204/"}
-        twitter={"https://twitter.com/Yunus_Shaikh29"}
-      /> */}
+    <div style={{ width: "100%", display: "flex", }}>
+      <div className={styles.sidebar}>
+        <Form />
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {cardsData.map((card) => (
+          <BusinessCard
+            key={card.name}
+            name={card.name}
+            description={card.description}
+            interests={card.interests}
+            linkedin={card.linkedin}
+            twitter={card.twitter}
+            otherSocialMedia={card.otherSocialMedia}
+          />
+        ))}
+      </div>
     </div>
   );
 }
