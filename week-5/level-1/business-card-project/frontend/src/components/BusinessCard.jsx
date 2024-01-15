@@ -8,12 +8,10 @@ function BusinessCard(props) {
       <h2 style={styles.name}>{props.name}</h2>
       <p style={styles.description}>{props.description}</p>
       <h3 style={styles.interestsHeader}>Interest</h3>
-      <ul style={{...styles.interestsList, display: 'flex', gap: '.5rem'}}>
-        {props.interests.map((interest) => (
-          <li key={interest} style={styles.interestItem}>
-            {interest}
-          </li>
-        ))}
+      <ul style={{ ...styles.interestsList, display: "flex", gap: ".5rem" }}>
+        <li key={props.interests} style={styles.interestItem}>
+          {props.interests}
+        </li>
       </ul>
       <div style={styles.socialLinks}>
         <a
@@ -44,7 +42,12 @@ function BusinessCard(props) {
         )}
       </div>
       <div style={styles.btnGroup}>
-        <button style={styles.btn}>Edit</button><button style={{...styles.btn, backgroundColor: 'rgb(238, 105, 105)'}}>Delete</button>
+        <button style={styles.btn}>Edit</button>
+        <button
+          style={{ ...styles.btn, backgroundColor: "rgb(238, 105, 105)" }}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
@@ -59,6 +62,7 @@ const styles = {
     padding: "20px",
     margin: "15px",
     maxWidth: "400px",
+    minWidth: '20rem',
     boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     backgroundColor: "#f8f9fa",
   },
@@ -102,9 +106,9 @@ const styles = {
     marginBottom: "5px",
     color: "#555",
   },
-  btnGroup : {
-    display: 'flex',
-    gap: '1rem'
+  btnGroup: {
+    display: "flex",
+    gap: "1rem",
   },
   btn: {
     textDecoration: "none",
@@ -117,6 +121,6 @@ const styles = {
     boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)", //
     outline: "none",
     border: "none",
-    cursor: "pointer"
-  }
+    cursor: "pointer",
+  },
 };
