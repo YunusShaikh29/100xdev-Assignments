@@ -1,0 +1,47 @@
+/* App.css */
+
+.header{
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  width: 100%;
+  background: white;
+  margin-top: 2rem;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+}
+
+.input {
+  padding: 0.5em 0.8em;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 30%;
+  font-size: 1.2rem;
+}
+
+.button {
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: rgb(75, 69, 69);
+  color: white;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
+}
+
+.generatedParagraph {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  width: 100%;
+}
