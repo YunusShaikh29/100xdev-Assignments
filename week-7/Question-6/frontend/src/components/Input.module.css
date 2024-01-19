@@ -1,0 +1,19 @@
+
+.input_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    gap: 1rem;
+}
+
+
+.input {
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    border: none;
+    /* outline-offset: none; */
+    border-radius: 4px;
+}

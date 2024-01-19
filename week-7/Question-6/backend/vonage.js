@@ -3,15 +3,19 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const otpGenerator = require('otp-generator');
 const Nexmo = require('nexmo');
+const cors = require("cors")
+const dotenv = require("dotenv").config()
+
 // const {Vonage} = require("@vonage/server-sdk")
 
 const app = express();
 const PORT = 3001;
 
 app.use(bodyParser.json());
+app.use(cors())
 
-const apiKey = '99b63aaf';
-const apiSecret = 'D1ktQfiFDpJAgUAh';
+const apiKey = process.env.VONAGE_API_KEY;
+const apiSecret = process.env.VONAGE_API_SECRET;
 const nexmoPhoneNumber = '2907';
 
 const nexmo = new Nexmo({ apiKey, apiSecret });
