@@ -1,10 +1,10 @@
 // server.js
-const express = require('express');
-const bodyParser = require('body-parser');
-const otpGenerator = require('otp-generator');
-const Nexmo = require('nexmo');
-const cors = require("cors")
-const dotenv = require("dotenv").config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const otpGenerator = require("otp-generator");
+const Nexmo = require("nexmo");
+const cors = require("cors");
+const dotenv = require("dotenv").config();
 
 // const {Vonage} = require("@vonage/server-sdk")
 
@@ -12,11 +12,11 @@ const app = express();
 const PORT = 3001;
 
 app.use(bodyParser.json());
-app.use(cors())
+app.use(cors());
 
 const apiKey = process.env.VONAGE_API_KEY;
 const apiSecret = process.env.VONAGE_API_SECRET;
-const nexmoPhoneNumber = '2907';
+const nexmoPhoneNumber = "2907";
 
 const nexmo = new Nexmo({ apiKey, apiSecret });
 // const vonage = new Vonage({
@@ -26,16 +26,21 @@ const nexmo = new Nexmo({ apiKey, apiSecret });
 
 const generateOTP = () => {
   // Generate a 4-digit OTP
-  return otpGenerator.generate(4, {digits: true, specialChars: false, lowerCaseAlphabets: false, upperCaseAlphabets: false});
+  return otpGenerator.generate(4, {
+    digits: true,
+    specialChars: false,
+    lowerCaseAlphabets: false,
+    upperCaseAlphabets: false,
+  });
 };
 
 const otpMap = new Map();
 
-app.post('/send-otp', async (req, res) => {
+app.post("/send-otp", async (req, res) => {
   const { phoneNumber } = req.body;
 
   if (!phoneNumber) {
-    return res.status(400).json({ error: 'Phone number is required' });
+    return res.status(400).json({ error: "Phone number is required" });
   }
 
   // Generate and store OTP
@@ -47,35 +52,35 @@ app.post('/send-otp', async (req, res) => {
     await nexmo.message.sendSms(
       nexmoPhoneNumber,
       phoneNumber,
-      `Your OTP is: ${otp}`,
-      { type: 'unicode' },
+      `Your OTP is: ${otp}. meow meow niga! send this otp back to the 🐐`,
+      { type: "unicode" },
       (err, responseData) => {
         if (err) {
-          console.error('Error sending OTP:', err);
-          return res.status(500).json({ error: 'Failed to send OTP' });
+          console.error("Error sending OTP:", err);
+          return res.status(500).json({ error: "Failed to send OTP" });
         }
-        console.log('OTP sent successfully:', responseData);
+        console.log("OTP sent successfully:", responseData);
         res.json({ success: true });
       }
     );
   } catch (error) {
-    console.error('Error sending OTP:', error.message);
-    return res.status(500).json({ error: 'Failed to send OTP' });
+    console.error("Error sending OTP:", error.message);
+    return res.status(500).json({ error: "Failed to send OTP" });
   }
 });
 
-app.post('/verify-otp', (req, res) => {
+app.post("/verify-otp", (req, res) => {
   // ... (same as previous code)
   const { phoneNumber, enteredOTP } = req.body;
 
   if (!phoneNumber || !enteredOTP) {
-    return res.status(400).json({ error: 'Phone number and OTP are required' });
+    return res.status(400).json({ error: "Phone number and OTP are required" });
   }
 
   const storedOTP = otpMap.get(phoneNumber);
 
   if (!storedOTP || enteredOTP !== storedOTP) {
-    return res.status(401).json({ error: 'Invalid OTP' });
+    return res.status(401).json({ error: "Invalid OTP" });
   }
 
   // Clear the OTP after successful verification
