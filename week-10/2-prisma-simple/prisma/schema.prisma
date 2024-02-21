@@ -1,13 +1,15 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+
+
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://yunusshaikh29082:0ZTYp3WoOdBK@ep-delicate-hall-53917823.us-east-2.aws.neon.tech/week-10-prisma-assignment?sslmode=require"
+  url      = env("DATABASE_URL")
 }
 
 model User {
