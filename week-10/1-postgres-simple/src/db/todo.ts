@@ -19,6 +19,7 @@ export async function createTodo(
       `INSERT INTO todos (user_id, title, description) VALUES ($1, $2, $3) RETURNING *`,
       [userId, title, description]
     );
+    console.log(response)
     return response.rows[0];
   } catch (error) {
     console.error("Could not create todo", error);
@@ -40,7 +41,8 @@ export async function updateTodo(todoId: number) {
       `UPDATE todos SET done = true WHERE id = $1 RETURNING *`,
       [todoId]
     );
-    return response.rows;
+    console.log(response)
+    return response.rows[0];
   } catch (error) {
     console.error("Error while updating", error);
   }
@@ -61,6 +63,7 @@ export async function getTodos(userId: number) {
     const response = await client.query(
       `SELECT * FROM todos WHERE user_id = $1`, [userId]
     );
+    console.log(response)
     return response.rows;
   } catch (error) {
     console.error("some error occured", error);
